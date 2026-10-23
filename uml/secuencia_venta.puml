@@ -1,0 +1,23 @@
+@startuml
+actor Vendedor
+participant "Interfaz Flask" as UI
+participant "Servicio de ventas" as SV
+database SQLite
+Vendedor -> UI : enviar venta(producto, cantidad, CSRF)
+UI -> UI : validar sesión y token CSRF
+UI -> SV : registrar_venta(producto, cantidad)
+SV -> SQLite : BEGIN IMMEDIATE
+SV -> SQLite : UPDATE stock WHERE stock >= cantidad
+alt producto existente y stock suficiente
+  SQLite --> SV : fila actualizada
+  SV -> SQLite : leer precio y calcular total
+  SV -> SQLite : INSERT venta
+  SV -> SQLite : COMMIT
+  SV --> UI : venta confirmada
+  UI --> Vendedor : mostrar total actualizado
+else stock insuficiente o producto inexistente
+  SV -> SQLite : ROLLBACK
+  SV --> UI : rechazar operación
+  UI --> Vendedor : informar rechazo
+end
+@enduml

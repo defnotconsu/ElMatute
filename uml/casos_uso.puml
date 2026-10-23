@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+actor "Vendedor/a" as V
+rectangle "El Matute" {
+  usecase "Iniciar sesión" as UC1
+  usecase "Registrar producto" as UC2
+  usecase "Consultar inventario" as UC3
+  usecase "Registrar venta" as UC4
+  usecase "Validar stock" as UC5
+  usecase "Consultar últimas ventas" as UC6
+  usecase "Cerrar sesión" as UC7
+}
+V --> UC1
+V --> UC2
+V --> UC3
+V --> UC4
+UC4 .> UC5 : <<include>>
+V --> UC6
+V --> UC7
+@enduml

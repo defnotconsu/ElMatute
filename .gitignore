@@ -1,0 +1,21 @@
+# Entornos y secretos locales
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Datos locales y archivos temporales de Python
+*.db
+*.sqlite3
+*.sqlite
+*.db-wal
+*.db-shm
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# Configuración local del editor
+.vscode/
+.idea/

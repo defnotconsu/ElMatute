@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Matute | Inventario y ventas</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>El Matute</h1>
+        <p>Sistema de gestión de inventario y ventas</p>
+        <form action="{{ url_for('logout') }}" method="post" class="logout-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+            <button type="submit">Cerrar sesión</button>
+        </form>
+    </header>
+
+    <main>
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                <section class="mensajes" aria-live="polite">
+                    {% for mensaje in mensajes %}
+                        <p>{{ mensaje }}</p>
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endwith %}
+
+        <section class="panel">
+            <h2>Registrar producto</h2>
+            <form action="{{ url_for('agregar_producto') }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+                <label for="nombre">Nombre de la prenda</label>
+                <input id="nombre" name="nombre" required maxlength="100"
+                       placeholder="Ej.: Calzón de algodón">
+
+                <label for="talla">Talla</label>
+                <input id="talla" name="talla" required maxlength="20"
+                       placeholder="Ej.: M">
+
+                <label for="precio">Precio en pesos chilenos</label>
+                <input id="precio" name="precio" type="number"
+                       min="1" step="1" required>
+
+                <label for="stock">Cantidad inicial</label>
+                <input id="stock" name="stock" type="number"
+                       min="0" step="1" required>
+
+                <button type="submit">Guardar producto</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Inventario disponible</h2>
+            {% if productos %}
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Talla</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in productos %}
+                            <tr>
+                                <td>{{ p.nombre }}</td>
+                                <td>{{ p.talla }}</td>
+                                <td>${{ "{:,.0f}".format(p.precio).replace(",", ".") }}</td>
+                                <td>{{ p.stock }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>Aún no hay productos registrados.</p>
+            {% endif %}
+        </section>
+
+        <section class="panel">
+            <h2>Registrar venta</h2>
+            <form action="{{ url_for('registrar_venta') }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+                <label for="producto_id">Producto</label>
+                <select id="producto_id" name="producto_id" required>
+                    <option value="">Selecciona una prenda</option>
+                    {% for p in productos %}
+                        <option value="{{ p.id }}">
+                            {{ p.nombre }} - Talla {{ p.talla }}
+                            (stock: {{ p.stock }})
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <label for="cantidad">Cantidad a vender</label>
+                <input id="cantidad" name="cantidad" type="number"
+                       min="1" step="1" required>
+
+                <button type="submit">Registrar venta</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <h2>Últimas ventas</h2>
+            {% if ventas %}
+                <div class="tabla-contenedor">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N.º</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for v in ventas %}
+                            <tr>
+                                <td>{{ v.id }}</td>
+                                <td>{{ v.nombre }} ({{ v.talla }})</td>
+                                <td>{{ v.cantidad }}</td>
+                                <td>${{ "{:,.0f}".format(v.total).replace(",", ".") }}</td>
+                                <td>{{ v.fecha }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>Todavía no se han registrado ventas.</p>
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>Proyecto académico de Ingeniería de Software · El Matute</footer>
+</body>
+</html>
+    

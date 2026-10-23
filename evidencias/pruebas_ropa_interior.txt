@@ -1,0 +1,11 @@
+test_authentication_is_required (test_app.AppSecurityTests.test_authentication_is_required) ... ok
+test_csrf_token_is_required_for_state_changes (test_app.AppSecurityTests.test_csrf_token_is_required_for_state_changes) ... ok
+test_login_and_sale_update_inventory_atomically (test_app.AppSecurityTests.test_login_and_sale_update_inventory_atomically) ... ok
+test_sale_rejects_insufficient_stock_without_partial_record (test_app.AppSecurityTests.test_sale_rejects_insufficient_stock_without_partial_record) ... ok
+test_security_headers_are_present (test_app.AppSecurityTests.test_security_headers_are_present) ... ok
+test_sql_like_input_is_stored_as_data (test_app.AppSecurityTests.test_sql_like_input_is_stored_as_data) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.822s
+
+OK

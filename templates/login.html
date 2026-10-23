@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar | El Matute</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header><h1>El Matute</h1><p>Acceso a inventario y ventas</p></header>
+    <main>
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}<section class="mensajes" aria-live="polite">{% for mensaje in mensajes %}<p>{{ mensaje }}</p>{% endfor %}</section>{% endif %}
+        {% endwith %}
+        <section class="panel">
+            <h2>Iniciar sesión</h2>
+            <form action="{{ url_for('login') }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}">
+                <label for="usuario">Usuario</label>
+                <input id="usuario" name="usuario" autocomplete="username" required maxlength="80">
+                <label for="clave">Contraseña</label>
+                <input id="clave" name="clave" type="password" autocomplete="current-password" required>
+                <button type="submit">Ingresar</button>
+            </form>
+        </section>
+    </main>
+    <footer>Prototipo académico. No usar con datos reales sin configuración y revisión de seguridad.</footer>
+</body>
+</html>

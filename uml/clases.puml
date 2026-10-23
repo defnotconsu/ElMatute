@@ -1,0 +1,39 @@
+@startuml
+class Producto {
+  +id: int
+  +nombre: str
+  +talla: str
+  +precio: CLP
+  +stock: int
+}
+class Venta {
+  +id: int
+  +cantidad: int
+  +precio_unitario: CLP
+  +total: CLP
+  +fecha: datetime
+}
+class "Usuario / sesión" as Usuario {
+  +usuario configurado: str
+  +sesión firmada
+  +token CSRF
+}
+class ServicioInventario {
+  +crear_producto(datos)
+  +consultar_stock(producto_id)
+}
+class ServicioVentas {
+  +registrar_venta(producto_id, cantidad)
+  +validar_stock()
+}
+Producto "1" <-- "0..*" Venta : producto
+ServicioInventario ..> Producto
+ServicioVentas ..> Venta
+ServicioVentas ..> Producto : descuenta stock
+note right of Usuario
+  Credenciales en entorno,
+  no persistidas en SQLite.
+end note
+Usuario ..> ServicioInventario : autoriza
+Usuario ..> ServicioVentas : autoriza
+@enduml

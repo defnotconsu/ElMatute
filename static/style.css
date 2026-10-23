@@ -1,0 +1,141 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #faf6f5;
+    color: #342c30;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background: #713e55;
+    color: white;
+    text-align: center;
+    padding: 28px 16px;
+}
+
+header h1 {
+    margin: 0 0 8px;
+    letter-spacing: 1px;
+}
+
+header p {
+    margin: 0;
+}
+
+.logout-form { display: inline-block; margin-top: 14px; }
+.logout-form button { padding: 8px 14px; margin: 0; background: #542b3e; }
+
+main {
+    max-width: 1000px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+.panel {
+    background: white;
+    margin-bottom: 22px;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #0000000c;
+}
+
+h2 {
+    color: #713e55;
+    margin-top: 0;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d9cbd1;
+    border-radius: 7px;
+    font-size: 15px;
+    background: white;
+}
+
+button {
+    margin-top: 10px;
+    padding: 12px;
+    border: 0;
+    border-radius: 7px;
+    background: #713e55;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #542b3e;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #eee4e8;
+}
+
+th {
+    background: #f6edf1;
+}
+
+.mensajes {
+    background: #f6edf1;
+    border-left: 4px solid #713e55;
+    border-radius: 5px;
+    padding: 8px 14px;
+    margin-bottom: 18px;
+}
+
+footer {
+    text-align: center;
+    padding: 24px;
+    color: #71666b;
+    font-size: 13px;
+}
+
+@media (min-width: 700px) {
+    form {
+        grid-template-columns: 1fr 1fr;
+        column-gap: 18px;
+    }
+
+    form label {
+        align-self: end;
+    }
+
+    form input,
+    form select,
+    form button {
+        min-width: 0;
+    }
+
+    form button {
+        grid-column: 1 / -1;
+    }
+}
